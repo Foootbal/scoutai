@@ -13,25 +13,33 @@
   <video id="video" width="300" controls></video>
 
   <script type="module">
-    import { createClient } from 'https://esm.sh/@supabase/supabase-js'
+import { createClient } from 'https://esm.sh/@supabase/supabase-js'
 
-    const supabase = createClient(
-      "https://qzcqvgdodfywjrcnzaxn.supabase.co",
-      "sb_publishable_Www6HYX8E6tK9zWX_FyRog_YW78qmab"
-    )
+const supabase = createClient(
+  "https://qzcqvgdodfywjrcnzaxn.supabase.co",
+  "YOUR_FULL_PUBLISHABLE_KEY"
+)
 
-    async function upload() {
-      const file = document.getElementById('fileInput').files[0]
+async function upload() {
+  const file = document.getElementById('fileInput').files[0]
 
-      const { data, error } = await supabase.storage
-        .from('videos')
-        .upload(`video-${Date.now()}.mp4`, file)
+  if (!file) {
+    alert("Please choose a file first")
+    return
+  }
 
-      console.log(data, error)
-    }
+  const { data, error } = await supabase.storage
+    .from('videos')
+    .upload(`video-${Date.now()}.mp4`, file)
 
-    window.upload = upload
-  </script>
+  if (error) {
+    alert(error.message)
+    console.error(error)
+  } else {
+    alert("Upload successful!")
+    console.log(data)
+  }
+}
 
-</body>
-</html>
+window.upload = upload
+</script>
