@@ -21,6 +21,7 @@ const supabase = createClient(
 )
 
 async function upload() {
+  alert("Button clicked!");
   const file = document.getElementById('fileInput').files[0]
 
   if (!file) {
