@@ -8,7 +8,7 @@
   <h1><h1>ScoutAI TEST ⚽</h1></h1>
 
   <input type="file" id="fileInput" />
-  <button onclick="alert('Button works')">Upload Video</button>
+  <button onclick="upload()">Upload Video</button>
 
   <video id="video" width="300" controls></video>
 
@@ -17,33 +17,20 @@ import { createClient } from 'https://esm.sh/@supabase/supabase-js'
 
 const supabase = createClient(
   "https://qzcqvgdodfywjrcnzaxn.supabase.co",
-  "YOUR_FULL_PUBLISHABLE_KEY"
+  "PASTE_YOUR_REAL_PUBLISHABLE_KEY_HERE"
 )
 
 async function upload() {
-  alert("Button clicked!");
+  alert("Button clicked!")
 
   const file = document.getElementById('fileInput').files[0]
-
-  alert(file ? "File selected" : "No file selected");
 
   if (!file) {
     alert("Please choose a file first")
     return
   }
-  }
 
-  const { data, error } = await supabase.storage
-    .from('videos')
-    .upload(`video-${Date.now()}.mp4`, file)
-
-  if (error) {
-    alert(error.message)
-    console.error(error)
-  } else {
-    alert("Upload successful!")
-    console.log(data)
-  }
+  alert("File selected")
 }
 
 window.upload = upload
