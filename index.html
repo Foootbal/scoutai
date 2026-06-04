@@ -22,11 +22,15 @@ const supabase = createClient(
 
 async function upload() {
   alert("Button clicked!");
+
   const file = document.getElementById('fileInput').files[0]
+
+  alert(file ? "File selected" : "No file selected");
 
   if (!file) {
     alert("Please choose a file first")
     return
+  }
   }
 
   const { data, error } = await supabase.storage
