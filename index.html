@@ -10,20 +10,21 @@
   <input type="file" id="fileInput" />
   <button onclick="upload()">Upload Video</button>
 
-  <script>
-    function upload() {
-      alert("Button clicked!");
+<script>
+function upload() {
+  alert("Button clicked!");
 
-      const file = document.getElementById('fileInput').files[0];
+  const input = document.getElementById('fileInput');
 
-      if (!file) {
-        alert("Please choose a file first");
-        return;
-      }
+  alert("Files selected: " + input.files.length);
 
-      alert("File selected: " + file.name);
-    }
-  </script>
+  if (input.files.length === 0) {
+    alert("No file selected");
+    return;
+  }
 
+  alert("File selected: " + input.files[0].name);
+}
+</script>
 </body>
 </html>
