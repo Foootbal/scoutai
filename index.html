@@ -5,36 +5,25 @@
 </head>
 <body style="background:black;color:white;text-align:center;">
 
-  <h1><h1>ScoutAI TEST ⚽</h1></h1>
+  <h1>ScoutAI TEST ⚽</h1>
 
   <input type="file" id="fileInput" />
   <button onclick="upload()">Upload Video</button>
 
-  <video id="video" width="300" controls></video>
+  <script>
+    function upload() {
+      alert("Button clicked!");
 
-  <script type="module">
-import { createClient } from 'https://esm.sh/@supabase/supabase-js'
+      const file = document.getElementById('fileInput').files[0];
 
-const supabase = createClient(
-  "https://qzcqvgdodfywjrcnzaxn.supabase.co",
-  "PASTE_YOUR_REAL_PUBLISHABLE_KEY_HERE"
-)
+      if (!file) {
+        alert("Please choose a file first");
+        return;
+      }
 
-async function upload() {
-  alert("Button clicked!")
+      alert("File selected: " + file.name);
+    }
+  </script>
 
-  const file = document.getElementById('fileInput').files[0]
-
-  if (!file) {
-    alert("Please choose a file first")
-    return
-  }
-
-  alert("File selected")
-}
-
-  alert("File selected")
-}
-
-window.upload = upload
-</script>
+</body>
+</html>
