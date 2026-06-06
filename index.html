@@ -10,21 +10,39 @@
   <input type="file" id="fileInput" />
   <button onclick="upload()">Upload Video</button>
 
-<script>
-function upload() {
-  alert("Button clicked!");
+<script type="module">
+import { createClient } from 'https://esm.sh/@supabase/supabase-js'
 
-  const input = document.getElementById('fileInput');
+const supabase = createClient(
+  "https://qzcqvgdodfywjrcnzaxn.supabase.co",
+  "sb_publishable_Www6HYX8E6tK9zWX_FyRog_YW78qmab"
+)
 
-  alert("Files selected: " + input.files.length);
+async function upload() {
+  const file = document.getElementById('fileInput').files[0]
 
-  if (input.files.length === 0) {
-    alert("No file selected");
-    return;
+  if (!file) {
+    alert("No file selected")
+    return
   }
 
-  alert("File selected: " + input.files[0].name);
+  try {
+    const { data, error } = await supabase.storage
+      .from('videos')
+      .upload(`video-${Date.now()}`, file)
+
+    if (error) {
+      alert("Upload error: " + error.message)
+      return
+    }
+
+    alert("Upload successful!")
+  } catch (err) {
+    alert("Error: " + err.message)
+  }
 }
+
+window.upload = upload
 </script>
 </body>
 </html>
