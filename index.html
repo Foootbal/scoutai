@@ -21,27 +21,34 @@
     )
 alert("Supabase loaded");
     async function upload() {
-      alert("Upload started");
+  alert("Upload started");
 
-      const file = document.getElementById('fileInput').files[0];
+  const file = document.getElementById('fileInput').files[0];
 
-      if (!file) {
-        alert("Please choose a file first");
-        return;
-      }
+  if (!file) {
+    alert("Please choose a file first");
+    return;
+  }
 
-      try {
-        const { data, error } = await supabase.storage
-          .from('videos')
-          .upload(`video-${Date.now()}`, file);
+  alert("About to upload");
 
-        if (error) {
-          alert("Upload error: " + error.message);
-          return;
-        }
+  const uploadPromise = supabase.storage
+    .from('videos')
+    .upload(`video-${Date.now()}.mp4`, file);
 
-        alert("Upload successful!");
-        console.log(data);
+  alert("Upload request sent");
+
+  const { data, error } = await uploadPromise;
+
+  if (error) {
+    alert("ERROR: " + error.message);
+    console.error(error);
+    return;
+  }
+
+  alert("SUCCESS!");
+  console.log(data);
+}
 
       } catch (err) {
         alert("Error: " + err.message);
