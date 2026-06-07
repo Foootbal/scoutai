@@ -7,42 +7,25 @@
 
   <h1>ScoutAI TEST ⚽</h1>
 
-  <input type="file" id="fileInput" />
+  <input type="file" id="fileInput">
+  <br><br>
+
   <button onclick="upload()">Upload Video</button>
 
-<script type="module">
-import { createClient } from 'https://esm.sh/@supabase/supabase-js'
+  <script>
+    function upload() {
+      alert("Upload function started");
 
-const supabase = createClient(
-  "https://qzcqvgdodfywjrcnzaxn.supabase.co",
-  "sb_publishable_Www6HYX8E6tK9zWX_FyRog_YW78qmab"
-)
+      const file = document.getElementById('fileInput').files[0];
 
-async function upload() {
-  const file = document.getElementById('fileInput').files[0]
+      if (!file) {
+        alert("No file selected");
+        return;
+      }
 
-  if (!file) {
-    alert("No file selected")
-    return
-  }
-
-  try {
-    const { data, error } = await supabase.storage
-      .from('videos')
-      .upload(`video-${Date.now()}`, file)
-
-    if (error) {
-      alert("Upload error: " + error.message)
-      return
+      alert("Selected file: " + file.name);
     }
+  </script>
 
-    alert("Upload successful!")
-  } catch (err) {
-    alert("Error: " + err.message)
-  }
-}
-
-window.upload = upload
-</script>
 </body>
 </html>
